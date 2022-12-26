@@ -1,0 +1,18 @@
+.btn {
+  border-radius: 35px;
+  margin: auto;
+}
+.card {
+  box-shadow: 3px 6px 8px 0 rgb(153 153 153 / 20%),
+    1px 20px 20px 3px rgb(88 88 88 / 19%) !important;
+  transition: all 0.5s;
+}
+.card:hover {
+  transform: scale(1.1);
+}
+.summery {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+}
