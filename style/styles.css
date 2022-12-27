@@ -1,19 +1,28 @@
 .btn {
   border-radius: 35px;
   margin: auto;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 20px;
 }
 .card:hover {
   box-shadow: 0px 0px 20px 4px #0d6dfd70, 1px 20px 20px 3px #0d6dfd70 !important;
 }
-
+.card-container {
+  width: 75%;
+  margin: auto;
+}
 .card {
   transition: all 0.5s;
+  width: 18rem;
+  margin-top: 50px;
 }
 .summery {
   display: -webkit-box;
   overflow: hidden;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  margin-bottom: 60px;
 }
 
 html::-webkit-scrollbar {
