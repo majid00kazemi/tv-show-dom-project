@@ -10,12 +10,9 @@ async function getEpisodes() {
   movieTags = document.querySelectorAll(".card-body");
 }
 
-// setTimeout(() => {
-//   console.log(movieTags);
-// }, 2000);
-
 searchInput.addEventListener("input", () => {
   movieTags.forEach((movie) => {
+    movie.parentElement.classList.add("show");
     const texts = movie.textContent.toLowerCase();
     if (!texts.includes(searchInput.value.toLowerCase())) {
       movie.parentElement.style.display = "none";

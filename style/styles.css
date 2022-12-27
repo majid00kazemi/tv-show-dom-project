@@ -36,9 +36,9 @@
   font-size: 20px;
   margin-top: 20px;
   border-radius: 70px;
-  border: 2px solid  #0d6dfd70;
+  border: 2px solid #0d6dfd70;
 }
-#search:focus{
+#search:focus {
   border: 2px solid #0d6efd;
   outline: none;
 }
