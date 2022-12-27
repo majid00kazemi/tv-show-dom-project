@@ -2,13 +2,12 @@
   border-radius: 35px;
   margin: auto;
 }
-.card {
-  box-shadow: 3px 6px 8px 0 rgb(153 153 153 / 20%),
-    1px 20px 20px 3px rgb(88 88 88 / 19%) !important;
-  transition: all 0.5s;
-}
 .card:hover {
-  transform: scale(1.1);
+  box-shadow: 0px 0px 20px 4px #0d6dfd70, 1px 20px 20px 3px #0d6dfd70 !important;
+}
+
+.card {
+  transition: all 0.5s;
 }
 .summery {
   display: -webkit-box;
