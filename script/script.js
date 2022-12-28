@@ -15,10 +15,10 @@ async function getEpisodes() {
   } catch (error) {
     alertDialog.style.display = "block";
     console.log(error.message);
-    alertDialog.textContent = `${error.message} Please Refresh`;
+    alertDialog.textContent = `${error.message}. Please Refresh`;
     setTimeout(() => {
-      $(".alert").fadeOut();
-    }, 1500);
+      $(".alert").fadeOut(1000);
+    }, 5000);
   }
 }
 
@@ -27,9 +27,11 @@ searchInput.addEventListener("input", () => {
     movie.parentElement.classList.add("show");
     const texts = movie.textContent.toLowerCase();
     if (!texts.includes(searchInput.value.toLowerCase())) {
-      movie.parentElement.style.display = "none";
+      // movie.parentElement.style.display = "none";
+      $(movie.parentElement).fadeOut();
     } else {
-      movie.parentElement.style.display = "block";
+      // movie.parentElement.style.display = "block";
+      $(movie.parentElement).fadeIn();
     }
   });
 });
@@ -45,7 +47,7 @@ const addCards = (episode) => {
     const link = document.createElement("a");
 
     divContainer.classList.add(
-      "shadow-lg",
+      "shadow",
       "mb-3",
       "card",
       "text-bg-dark",
