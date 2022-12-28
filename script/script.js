@@ -1,13 +1,25 @@
 const cardContainer = document.querySelector(".card-container");
 const searchInput = document.querySelector("#search");
+const alertDialog = document.querySelector(".alert");
+
 setTimeout(() => {
   getEpisodes();
 }, 1000);
 let movieTags;
 async function getEpisodes() {
-  const res = await axios.get("https://api.tvmaze.com/shows/82/episodes");
-  addCards(res.data);
-  movieTags = document.querySelectorAll(".card-body");
+  try {
+    alertDialog.style.display = "none";
+    const res = await axios.get("https://api.tvmaze.com/shows/22036/episodes");
+    addCards(res.data);
+    movieTags = document.querySelectorAll(".card-body");
+  } catch (error) {
+    alertDialog.style.display = "block";
+    console.log(error.message);
+    alertDialog.textContent = `${error.message} Please Refresh`;
+    setTimeout(() => {
+      $(".alert").fadeOut();
+    }, 1500);
+  }
 }
 
 searchInput.addEventListener("input", () => {
