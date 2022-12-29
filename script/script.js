@@ -38,7 +38,6 @@ async function getEpisodes() {
 
 selectForm.addEventListener("change", (option) => {
   const value = option.target.value;
-  console.log(value);
   movieTags.forEach((movie) => {
     const ep = movie.children[1].textContent;
     movie.parentElement.classList.add("show");
@@ -53,26 +52,26 @@ selectForm.addEventListener("change", (option) => {
 });
 
 searchInput.addEventListener("input", () => {
+  selectForm.setAttribute("disabled", "disabled");
+  selectForm.value = "All Episode";
   let count = 0;
   movieTags.forEach((movie) => {
     const titleOfEp = movie.children[0].textContent.toLowerCase();
     const summaryOfEp = movie.children[2].textContent.toLowerCase();
     movie.parentElement.classList.add("show");
-    // const texts = movie.textContent.toLowerCase();
     if (
       !titleOfEp.includes(searchInput.value.toLowerCase()) &&
       !summaryOfEp.includes(searchInput.value.toLowerCase())
     ) {
-      // movie.parentElement.style.display = "none";
       $(movie.parentElement).fadeOut();
     } else {
-      // movie.parentElement.style.display = "block";
       $(movie.parentElement).fadeIn();
       count++;
     }
   });
   if (searchInput.value == "") {
     searchP.style.display = "none";
+    selectForm.removeAttribute("disabled");
   } else {
     searchP.style.display = "block";
     searchP.textContent =
