@@ -15,9 +15,15 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   </head>
-  <body class="bg-dark text-white">
+  <body class="">
     <section class="alert-container">
       <div class="alert alert-danger" role="alert"></div>
+    </section>
+
+    <section class="loading">
+      <div class="spinner-grow text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
     </section>
 
     <section class="search-section">
@@ -28,6 +34,8 @@
         id="search"
         placeholder="Search Episode..."
       />
+
+      <p class="text-muted search-count">Search count</p>
     </section>
 
     <section

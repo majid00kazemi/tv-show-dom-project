@@ -1,19 +1,29 @@
 const cardContainer = document.querySelector(".card-container");
 const searchInput = document.querySelector("#search");
 const alertDialog = document.querySelector(".alert");
+const loading = document.querySelector(".loading");
+const searchP = document.querySelector(".search-count");
+let movieTags;
 
 setTimeout(() => {
   getEpisodes();
 }, 1000);
-let movieTags;
+
 async function getEpisodes() {
   try {
+    $(".loading").fadeIn(1000);
+    loading.style.display = "flex";
     alertDialog.style.display = "none";
-    const res = await axios.get("https://api.tvmaze.com/shows/22036/episodes");
+    const res = await axios.get("https://api.tvmaze.com/shows/82/episodes");
+    loading.style.display = "none";
+    // $(".loading").fadeOut();
+    searchInput.style.display = "inline";
     addCards(res.data);
     movieTags = document.querySelectorAll(".card-body");
   } catch (error) {
-    alertDialog.style.display = "block";
+    loading.style.display = "none";
+    $(".alert").fadeIn(1000);
+    // alertDialog.style.display = "block";
     console.log(error.message);
     alertDialog.textContent = `${error.message}. Please Refresh`;
     setTimeout(() => {
@@ -23,6 +33,7 @@ async function getEpisodes() {
 }
 
 searchInput.addEventListener("input", () => {
+  let count = 0;
   movieTags.forEach((movie) => {
     movie.parentElement.classList.add("show");
     const texts = movie.textContent.toLowerCase();
@@ -32,8 +43,16 @@ searchInput.addEventListener("input", () => {
     } else {
       // movie.parentElement.style.display = "block";
       $(movie.parentElement).fadeIn();
+      count++;
     }
   });
+  if (searchInput.value == "") {
+    searchP.style.display = "none";
+  } else {
+    searchP.style.display = "block";
+    searchP.textContent =
+      count > 1 ? `${count} episodes found!` : `${count} episode found!`;
+  }
 });
 
 const addCards = (episode) => {

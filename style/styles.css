@@ -24,22 +24,39 @@
   -webkit-box-orient: vertical;
   margin-bottom: 60px;
 }
+.loading {
+  display: none;
+  /* display: flex; */
+  position: absolute;
+  top: 50%;
+  width: 100%;
+}
+.spinner-grow {
+  margin: auto;
+}
 .search-section {
   width: 100%;
   margin: auto;
   text-align: center;
 }
+.search-count {
+  display: none;
+  margin: 16px;
+}
 #search {
+  display: none;
   text-align: center;
   padding: 8px;
   font-size: 20px;
   margin-top: 20px;
   border-radius: 70px;
   border: 2px solid #0d6dfd70;
+  transition: all 0.5s;
 }
 #search:focus {
   border: 2px solid #0d6efd;
   outline: none;
+  box-shadow: 0px 0px 1px 1px #0d6dfd70, 1px 1px 1px 1px #0d6dfd70 !important;
 }
 .alert-container {
   position: absolute;
