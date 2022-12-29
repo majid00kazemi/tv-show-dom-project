@@ -3,9 +3,8 @@ const searchInput = document.querySelector("#search");
 const alertDialog = document.querySelector(".alert");
 const loading = document.querySelector(".loading");
 const searchP = document.querySelector(".search-count");
+const selectForm = document.querySelector(".form-select");
 let movieTags;
-
-let episodesDetail = {};
 
 setTimeout(() => {
   getEpisodes();
@@ -20,10 +19,12 @@ async function getEpisodes() {
     loading.style.display = "none";
     // $(".loading").fadeOut();
     searchInput.style.display = "inline";
+    selectForm.style.display = "block";
     addCards(res.data);
     movieTags = document.querySelectorAll(".card-body");
-    console.log(episodesDetail);
+    console.log(movieTags.children);
   } catch (error) {
+    selectForm.style.display = "none";
     loading.style.display = "none";
     $(".alert").fadeIn(1000);
     // alertDialog.style.display = "block";
@@ -35,12 +36,33 @@ async function getEpisodes() {
   }
 }
 
+selectForm.addEventListener("change", (option) => {
+  const value = option.target.value;
+  console.log(value);
+  movieTags.forEach((movie) => {
+    const ep = movie.children[1].textContent;
+    movie.parentElement.classList.add("show");
+    if (value === "All Episode") {
+      $(movie.parentElement).fadeIn();
+    } else if (!ep.includes(value)) {
+      $(movie.parentElement).fadeOut();
+    } else {
+      $(movie.parentElement).fadeIn();
+    }
+  });
+});
+
 searchInput.addEventListener("input", () => {
   let count = 0;
   movieTags.forEach((movie) => {
+    const titleOfEp = movie.children[0].textContent.toLowerCase();
+    const summaryOfEp = movie.children[2].textContent.toLowerCase();
     movie.parentElement.classList.add("show");
-    const texts = movie.textContent.toLowerCase();
-    if (!texts.includes(searchInput.value.toLowerCase())) {
+    // const texts = movie.textContent.toLowerCase();
+    if (
+      !titleOfEp.includes(searchInput.value.toLowerCase()) &&
+      !summaryOfEp.includes(searchInput.value.toLowerCase())
+    ) {
       // movie.parentElement.style.display = "none";
       $(movie.parentElement).fadeOut();
     } else {
@@ -96,10 +118,11 @@ const addCards = (episode) => {
     link.href = ep.url;
     link.textContent = "Episode Link";
 
-    // episodesDetail.assign({ index: { season: ep.season, episode: ep.number } });
-    episodesDetail[index] = ep.name;
-    episodesDetail[index]["season"] = "ep.season";
+    const option = document.createElement("option");
+    option.value = fullEp;
+    option.textContent = `${fullEp} - ${ep.name}`;
 
+    selectForm.appendChild(option);
     divContainer.appendChild(img);
     cardBody.appendChild(movieTitle);
     cardBody.appendChild(movieEp);
