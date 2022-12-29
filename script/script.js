@@ -2,6 +2,7 @@ const cardContainer = document.querySelector(".card-container");
 const searchInput = document.querySelector("#search");
 const alertDialog = document.querySelector(".alert");
 const loading = document.querySelector(".loading");
+const searchP = document.querySelector(".search-count");
 let movieTags;
 
 setTimeout(() => {
@@ -13,10 +14,9 @@ async function getEpisodes() {
     $(".loading").fadeIn(1000);
     loading.style.display = "flex";
     alertDialog.style.display = "none";
-    const res = await axios.get("https://api.tvmaze.com/shows/527/episodes", {
-      timeout: 5000,
-    });
-    $(".loading").fadeOut(1000);
+    const res = await axios.get("https://api.tvmaze.com/shows/82/episodes");
+    loading.style.display = "none";
+    // $(".loading").fadeOut();
     searchInput.style.display = "inline";
     addCards(res.data);
     movieTags = document.querySelectorAll(".card-body");
@@ -33,20 +33,26 @@ async function getEpisodes() {
 }
 
 searchInput.addEventListener("input", () => {
+  let count = 0;
   movieTags.forEach((movie) => {
     movie.parentElement.classList.add("show");
     const texts = movie.textContent.toLowerCase();
     if (!texts.includes(searchInput.value.toLowerCase())) {
       // movie.parentElement.style.display = "none";
       $(movie.parentElement).fadeOut();
-      const countSearch = document.querySelectorAll(movie.parentElement).length;
-
-      console.log(countSearch);
     } else {
       // movie.parentElement.style.display = "block";
       $(movie.parentElement).fadeIn();
+      count++;
     }
   });
+  if (searchInput.value == "") {
+    searchP.style.display = "none";
+  } else {
+    searchP.style.display = "block";
+    searchP.textContent =
+      count > 1 ? `${count} episodes found!` : `${count} episode found!`;
+  }
 });
 
 const addCards = (episode) => {
