@@ -5,6 +5,8 @@ const loading = document.querySelector(".loading");
 const searchP = document.querySelector(".search-count");
 let movieTags;
 
+let episodesDetail = {};
+
 setTimeout(() => {
   getEpisodes();
 }, 1000);
@@ -20,6 +22,7 @@ async function getEpisodes() {
     searchInput.style.display = "inline";
     addCards(res.data);
     movieTags = document.querySelectorAll(".card-body");
+    console.log(episodesDetail);
   } catch (error) {
     loading.style.display = "none";
     $(".alert").fadeIn(1000);
@@ -56,7 +59,7 @@ searchInput.addEventListener("input", () => {
 });
 
 const addCards = (episode) => {
-  episode.forEach((ep) => {
+  episode.forEach((ep, index) => {
     const divContainer = document.createElement("div");
     const img = document.createElement("img");
     const cardBody = document.createElement("div");
@@ -92,6 +95,10 @@ const addCards = (episode) => {
     movieSummery.innerHTML = ep.summary;
     link.href = ep.url;
     link.textContent = "Episode Link";
+
+    // episodesDetail.assign({ index: { season: ep.season, episode: ep.number } });
+    episodesDetail[index] = ep.name;
+    episodesDetail[index]["season"] = "ep.season";
 
     divContainer.appendChild(img);
     cardBody.appendChild(movieTitle);
