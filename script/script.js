@@ -1,19 +1,29 @@
 const cardContainer = document.querySelector(".card-container");
 const searchInput = document.querySelector("#search");
 const alertDialog = document.querySelector(".alert");
+const loading = document.querySelector(".loading");
+let movieTags;
 
 setTimeout(() => {
   getEpisodes();
 }, 1000);
-let movieTags;
+
 async function getEpisodes() {
   try {
+    $(".loading").fadeIn(1000);
+    loading.style.display = "flex";
     alertDialog.style.display = "none";
-    const res = await axios.get("https://api.tvmaze.com/shows/22036/episodes");
+    const res = await axios.get("https://api.tvmaze.com/shows/527/episodes", {
+      timeout: 5000,
+    });
+    $(".loading").fadeOut(1000);
+    searchInput.style.display = "inline";
     addCards(res.data);
     movieTags = document.querySelectorAll(".card-body");
   } catch (error) {
-    alertDialog.style.display = "block";
+    loading.style.display = "none";
+    $(".alert").fadeIn(1000);
+    // alertDialog.style.display = "block";
     console.log(error.message);
     alertDialog.textContent = `${error.message}. Please Refresh`;
     setTimeout(() => {
@@ -29,6 +39,9 @@ searchInput.addEventListener("input", () => {
     if (!texts.includes(searchInput.value.toLowerCase())) {
       // movie.parentElement.style.display = "none";
       $(movie.parentElement).fadeOut();
+      const countSearch = document.querySelectorAll(movie.parentElement).length;
+
+      console.log(countSearch);
     } else {
       // movie.parentElement.style.display = "block";
       $(movie.parentElement).fadeIn();

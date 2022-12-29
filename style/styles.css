@@ -24,12 +24,23 @@
   -webkit-box-orient: vertical;
   margin-bottom: 60px;
 }
+.loading {
+  display: none;
+  /* display: flex; */
+  position: absolute;
+  top: 50%;
+  width: 100%;
+}
+.spinner-grow {
+  margin: auto;
+}
 .search-section {
   width: 100%;
   margin: auto;
   text-align: center;
 }
 #search {
+  display: none;
   text-align: center;
   padding: 8px;
   font-size: 20px;
