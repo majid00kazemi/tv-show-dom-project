@@ -1,3 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Work+Sans:wght@100&display=swap");
+* {
+  font-family: "Poppins", sans-serif;
+}
+h2 {
+  font-size: 1.7rem;
+}
 .btn {
   border-radius: 35px;
   margin: auto;
