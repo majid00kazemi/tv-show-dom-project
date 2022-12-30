@@ -5,7 +5,7 @@ const loading = document.querySelector(".loading");
 const searchP = document.querySelector(".search-count");
 const selectForm = document.querySelector(".form-select");
 let movieTags;
-
+let info = [];
 setTimeout(() => {
   getEpisodes();
 }, 1000);
@@ -17,7 +17,7 @@ async function getEpisodes() {
     alertDialog.style.display = "none";
     const res = await axios.get("https://api.tvmaze.com/shows/82/episodes");
     loading.style.display = "none";
-    // $(".loading").fadeOut();
+
     searchInput.style.display = "inline";
     selectForm.style.display = "block";
     addCards(res.data);
@@ -51,36 +51,45 @@ selectForm.addEventListener("change", (option) => {
   });
 });
 
-searchInput.addEventListener("input", () => {
+searchInput.addEventListener("input", (e) => {
+  console.log(info);
   selectForm.setAttribute("disabled", "disabled");
   selectForm.value = "All Episode";
   let count = 0;
-  movieTags.forEach((movie) => {
-    const titleOfEp = movie.children[0].textContent.toLowerCase();
-    const summaryOfEp = movie.children[2].textContent.toLowerCase();
-    movie.parentElement.classList.add("show");
-    if (
-      !titleOfEp.includes(searchInput.value.toLowerCase()) &&
-      !summaryOfEp.includes(searchInput.value.toLowerCase())
-    ) {
-      $(movie.parentElement).fadeOut();
-    } else {
-      $(movie.parentElement).fadeIn();
-      count++;
-    }
+  // movieTags.forEach((movie) => {
+  //   const titleOfEp = movie.children[0].textContent.toLowerCase();
+  //   const summaryOfEp = movie.children[2].textContent.toLowerCase();
+  //   movie.parentElement.classList.add("show");
+  //   if (
+  //     !titleOfEp.includes(searchInput.value.toLowerCase()) &&
+  //     !summaryOfEp.includes(searchInput.value.toLowerCase())
+  //   ) {
+  //     $(movie.parentElement).fadeOut();
+  //   } else {
+  //     $(movie.parentElement).fadeIn();
+  //     count++;
+  //   }
+  // });
+  const val = e.target.value.toLowerCase();
+  info.forEach((ep) => {
+    const isVisibale =
+      ep.name.toLowerCase().includes(val) ||
+      ep.summary.toLowerCase().includes(val);
+
+    ep.element.classList.toggle("hide", !isVisibale);
   });
-  if (searchInput.value == "") {
-    searchP.style.display = "none";
-    selectForm.removeAttribute("disabled");
-  } else {
-    searchP.style.display = "block";
-    searchP.textContent =
-      count > 1 ? `${count} episodes found!` : `${count} episode found!`;
-  }
+  // if (searchInput.value == "") {
+  //   searchP.style.display = "none";
+  //   selectForm.removeAttribute("disabled");
+  // } else {
+  //   searchP.style.display = "block";
+  //   searchP.textContent =
+  //     count > 1 ? `${count} episodes found!` : `${count} episode found!`;
+  // }
 });
 
 const addCards = (episode) => {
-  episode.forEach((ep, index) => {
+  info = episode.map((ep, index) => {
     const divContainer = document.createElement("div");
     const img = document.createElement("img");
     const cardBody = document.createElement("div");
@@ -129,5 +138,12 @@ const addCards = (episode) => {
     cardBody.appendChild(link);
     divContainer.appendChild(cardBody);
     cardContainer.appendChild(divContainer);
+
+    return {
+      name: ep.name,
+      id: ep.id,
+      summary: movieSummery.textContent,
+      element: divContainer,
+    };
   });
 };
