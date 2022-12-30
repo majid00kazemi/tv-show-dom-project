@@ -42,11 +42,11 @@ selectForm.addEventListener("change", (option) => {
     const ep = movie.children[1].textContent;
     movie.parentElement.classList.add("show");
     if (value === "All Episode") {
-      $(movie.parentElement).fadeIn();
+      $(movie.parentElement).show(500);
     } else if (!ep.includes(value)) {
-      $(movie.parentElement).fadeOut();
+      $(movie.parentElement).hide(500);
     } else {
-      $(movie.parentElement).fadeIn();
+      $(movie.parentElement).show(500);
     }
   });
 });
