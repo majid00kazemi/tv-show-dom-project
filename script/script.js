@@ -58,14 +58,13 @@ searchInput.addEventListener("input", () => {
   movieTags.forEach((movie) => {
     const titleOfEp = movie.children[0].textContent.toLowerCase();
     const summaryOfEp = movie.children[2].textContent.toLowerCase();
-    movie.parentElement.classList.add("show");
     if (
       !titleOfEp.includes(searchInput.value.toLowerCase()) &&
       !summaryOfEp.includes(searchInput.value.toLowerCase())
     ) {
-      $(movie.parentElement).fadeOut();
+      $(movie.parentElement).hide(500);
     } else {
-      $(movie.parentElement).fadeIn();
+      $(movie.parentElement).show(500);
       count++;
     }
   });
