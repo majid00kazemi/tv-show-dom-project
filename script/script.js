@@ -40,7 +40,6 @@ selectForm.addEventListener("change", (option) => {
   const value = option.target.value;
   movieTags.forEach((movie) => {
     const ep = movie.children[1].textContent;
-    movie.parentElement.classList.add("show");
     if (value === "All Episode") {
       $(movie.parentElement).show(500);
     } else if (!ep.includes(value)) {
