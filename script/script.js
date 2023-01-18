@@ -17,7 +17,6 @@ async function getEpisodes() {
     alertDialog.style.display = "none";
     const res = await axios.get("https://api.tvmaze.com/shows/82/episodes");
     loading.style.display = "none";
-    // $(".loading").fadeOut();
     searchInput.style.display = "inline";
     selectForm.style.display = "block";
     addCards(res.data);
